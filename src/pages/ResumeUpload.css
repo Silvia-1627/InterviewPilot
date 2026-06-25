@@ -1,0 +1,15 @@
+.resume-container {
+    width: 500px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .resume-container h1 {
+    text-align: center;
+  }
+  
+  .resume-container input {
+    padding: 10px;
+  }
