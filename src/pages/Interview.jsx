@@ -13,6 +13,7 @@ function Interview() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answer, setAnswer] = useState("");
+  const [allAnswers, setAllAnswers] = useState([]);
 
   return (
     <div className="interview-container">
@@ -30,6 +31,7 @@ function Interview() {
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
       ></textarea>
+      <h3>Answers Saved: {allAnswers.length}</h3>
 
       <p>Your Answer:</p>
       <p>{answer}</p>
@@ -38,14 +40,23 @@ function Interview() {
         className="next-btn"
         onClick={() => {
 
-          if (currentQuestion < questions.length - 1) {
+  const updatedAnswers = [...allAnswers, answer];
 
-            setCurrentQuestion(currentQuestion + 1);
-            setAnswer("");
+  setAllAnswers(updatedAnswers);
 
-          }
+  if (currentQuestion < questions.length - 1) {
 
-        }}
+    setCurrentQuestion(currentQuestion + 1);
+
+    setAnswer("");
+
+  } else {
+
+    console.log(updatedAnswers);
+
+  }
+
+}}
       >
         {currentQuestion === questions.length - 1
           ? "Finish Interview"
