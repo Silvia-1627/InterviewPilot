@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./Interview.css";
 import { useNavigate } from "react-router-dom";
+import "./Interview.css";
 
 function Interview() {
   const navigate = useNavigate();
@@ -19,11 +19,13 @@ function Interview() {
 
   return (
     <div className="interview-container">
-
       <h1>AI Mock Interview</h1>
 
       <div className="question-card">
-        <h3>Question {currentQuestion + 1}</h3>
+        <h2>
+          Question {currentQuestion + 1}
+        </h2>
+
         <p>{questions[currentQuestion]}</p>
       </div>
 
@@ -33,7 +35,6 @@ function Interview() {
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
       ></textarea>
-      <h3>Answers Saved: {allAnswers.length}</h3>
 
       <p>Your Answer:</p>
       <p>{answer}</p>
@@ -41,30 +42,26 @@ function Interview() {
       <button
         className="next-btn"
         onClick={() => {
+          const updatedAnswers = [...allAnswers, answer];
 
-  const updatedAnswers = [...allAnswers, answer];
+          setAllAnswers(updatedAnswers);
 
-  setAllAnswers(updatedAnswers);
-
-  if (currentQuestion < questions.length - 1) {
-
-    setCurrentQuestion(currentQuestion + 1);
-
-    setAnswer("");
-
-  } else {
-
-     navigate("/result");
-
-  }
-
-}}
+          if (currentQuestion < questions.length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
+            setAnswer("");
+          } else {
+            navigate("/result", {
+              state: {
+                answers: updatedAnswers,
+              },
+            });
+          }
+        }}
       >
         {currentQuestion === questions.length - 1
           ? "Finish Interview"
           : "Next Question"}
       </button>
-
     </div>
   );
 }
