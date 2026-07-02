@@ -1,7 +1,9 @@
 function Result() {
-    return (
-      <h1>Result Page</h1>
-    );
-  }
-  
-  export default Result;
+  return (
+    <div>
+      <h1>Interview Results</h1>
+    </div>
+  );
+}
+
+export default Result;

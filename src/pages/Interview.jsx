@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./Interview.css";
+import { useNavigate } from "react-router-dom";
 
 function Interview() {
+  const navigate = useNavigate();
 
   const questions = [
     "Tell me about yourself.",
@@ -52,7 +54,7 @@ function Interview() {
 
   } else {
 
-    console.log(updatedAnswers);
+     navigate("/result");
 
   }
 
