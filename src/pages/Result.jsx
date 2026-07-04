@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import "./Result.css";
 
 function Result() {
 
@@ -6,22 +7,28 @@ function Result() {
 
   const answers = location.state?.answers || [];
 
-  return (
-    <div>
+ return (
+  <div className="result-container">
 
-      <h1>Interview Results</h1>
+    <h1 className="result-title">
+      Interview Results
+    </h1>
+    <p>Total Questions Answered: {answers.length}</p>
 
-      <h2>Your Answers</h2>
+    {answers.map((answer, index) => (
+      <div className="answer-card" key={index}>
 
-      {answers.map((answer, index) => (
-        <div key={index}>
-          <h3>Answer {index + 1}</h3>
-          <p>{answer}</p>
-        </div>
-      ))}
+        <h3>
+          Question {index + 1}
+        </h3>
 
-    </div>
-  );
+        <p>{answer}</p>
+
+      </div>
+    ))}
+
+  </div>
+);
 }
 
 export default Result;
