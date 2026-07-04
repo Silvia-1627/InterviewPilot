@@ -1,7 +1,9 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Result.css";
 
 function Result() {
+
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -26,6 +28,12 @@ function Result() {
 
       </div>
     ))}
+   <button
+     className="retake-btn"
+      onClick={() => navigate("/interview")}
+>
+      Retake Interview
+     </button>
 
   </div>
 );
