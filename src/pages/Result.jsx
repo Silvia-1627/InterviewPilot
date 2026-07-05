@@ -8,6 +8,12 @@ function Result() {
   const location = useLocation();
 
   const answers = location.state?.answers || [];
+  const score = 78;
+const communication = 8;
+const confidence = 7;
+const technical = 8;
+const feedback =
+  "Good confidence and communication skills. Try providing more real-world examples in your answers to make them stronger.";
 
  return (
   <div className="result-container">
@@ -15,6 +21,26 @@ function Result() {
     <h1 className="result-title">
       Interview Results
     </h1>
+    <div className="score-card">
+
+  <h2>Overall Score: {score}/100</h2>
+  <div className="progress-bar">
+  <div
+    className="progress-fill"
+    style={{ width: `${score}%` }}
+  ></div>
+</div>
+
+  <p>Communication: {communication}/10</p>
+
+  <p>Confidence: {confidence}/10</p>
+
+  <p>Technical Knowledge: {technical}/10</p>
+  <h3>Feedback</h3>
+
+<p>{feedback}</p>
+
+</div>
     <p>Total Questions Answered: {answers.length}</p>
 
     {answers.map((answer, index) => (
