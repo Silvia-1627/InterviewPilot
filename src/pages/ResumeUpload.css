@@ -13,3 +13,43 @@
   .resume-container input {
     padding: 10px;
   }
+
+  .resume-info {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+}
+
+.success-text {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.analysis-ready {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.analyze-btn {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.analysis-box {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.analysis-box ul {
+  padding-left: 20px;
+}
+
+.analysis-box li {
+  margin-bottom: 8px;
+}
