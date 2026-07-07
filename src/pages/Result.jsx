@@ -1,4 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+ import { useState, useEffect } from "react";
+ import { useLocation, useNavigate } from "react-router-dom";
 import "./Result.css";
 
 function Result() {
@@ -8,13 +10,23 @@ function Result() {
   const location = useLocation();
 
   const answers = location.state?.answers || [];
+  const [apiFeedback, setApiFeedback] = useState("");
   const score = 78;
 const communication = 8;
 const confidence = 7;
 const technical = 8;
 const feedback =
   "Good confidence and communication skills. Try providing more real-world examples in your answers to make them stronger.";
-
+useEffect(() => {
+  axios
+    .get("http://localhost:5000/feedback")
+    .then((response) => {
+      setApiFeedback(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}, []);
  return (
   <div className="result-container">
 
@@ -39,6 +51,9 @@ const feedback =
   <h3>Feedback</h3>
 
 <p>{feedback}</p>
+<h3>Backend Feedback</h3>
+
+<p>{apiFeedback}</p>
 
 </div>
     <p>Total Questions Answered: {answers.length}</p>
