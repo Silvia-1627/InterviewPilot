@@ -6,52 +6,62 @@ function ResumeUpload() {
   const [resume, setResume] = useState(null);
   const [showAnalysis, setShowAnalysis] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
+  const [skills, setSkills] = useState([]);
+  const [questions, setQuestions] = useState([]);
+
   const handleUpload = async () => {
+    if (!resume) {
+      alert("Please select a resume first.");
+      return;
+    }
 
-  if (!resume) {
-    alert("Please select a resume first.");
-    return;
-  }
+    const formData = new FormData();
+    formData.append("resume", resume);
 
-  const formData = new FormData();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/upload",
+        formData
+      );
 
-  formData.append("resume", resume);
+      setUploadMessage(response.data.message);
+    } catch (error) {
+      console.log(error);
+      setUploadMessage("Upload failed.");
+    }
+  };
 
-  try {
+  const handleAnalyze = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/analyze"
+      );
 
-    const response = await axios.post(
-      "http://localhost:5000/upload",
-      formData
-    );
-
-    setUploadMessage(response.data.message);
-
-  } catch (error) {
-
-    console.log(error);
-
-    setUploadMessage("Upload failed.");
-
-  }
-
-};
-  const fileSize =
-  resume
-    ? (resume.size / 1024).toFixed(2)
-    : 0;
+      setSkills(response.data.skills);
+      setQuestions(response.data.questions);
+      setShowAnalysis(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleFileChange = (event) => {
     setResume(event.target.files[0]);
   };
 
+  const fileSize = resume
+    ? (resume.size / 1024).toFixed(2)
+    : 0;
+
   return (
     <div className="resume-container">
       <h1>Upload Resume</h1>
+
       {uploadMessage && (
-  <p className="upload-message">
-    {uploadMessage}
-  </p>
-)}
+        <p className="upload-message">
+          {uploadMessage}
+        </p>
+      )}
 
       <input
         type="file"
@@ -60,52 +70,56 @@ function ResumeUpload() {
       />
 
       {resume && (
-  <div className="resume-info">
+        <div className="resume-info">
+          <h3>Selected Resume</h3>
 
-    <h3>Selected Resume</h3>
+          <p>{resume.name}</p>
 
-    <p>{resume.name}</p>
+          <p>Size: {fileSize} KB</p>
 
-   <p>Size: {fileSize} KB</p>
+          <p className="success-text">
+            Resume Uploaded Successfully
+          </p>
 
-   <p className="success-text">
-  Resume Uploaded Successfully
-   </p>
-   <p className="analysis-ready">
-    Ready For AI Analysis
-   </p>
-     <button
-  className="analyze-btn"
-  onClick={handleUpload}
->
-  Upload Resume
-</button>
-{showAnalysis && (
-  <div className="analysis-box">
+          <p className="analysis-ready">
+            Ready For AI Analysis
+          </p>
 
-    <h3>Skills Detected</h3>
+          <button
+            className="analyze-btn"
+            onClick={handleUpload}
+          >
+            Upload Resume
+          </button>
 
-    <ul>
-      <li>Java</li>
-      <li>React</li>
-      <li>DSA</li>
-      <li>Problem Solving</li>
-    </ul>
+          <button
+            className="analyze-btn"
+            onClick={handleAnalyze}
+          >
+            Analyze Resume
+          </button>
 
-    <h3>Suggested Interview Questions</h3>
+          {showAnalysis && (
+            <div className="analysis-box">
+              <h3>Skills Detected</h3>
 
-    <ul>
-    <li>Explain Java OOP concepts.</li>
-    <li>What is React Virtual DOM?</li>
-    <li>How do arrays work in DSA?</li>
-    <li>Describe a challenging project you built.</li>
-   </ul>
+              <ul>
+                {skills.map((skill, index) => (
+                  <li key={index}>{skill}</li>
+                ))}
+              </ul>
 
-  </div>
-)}
+              <h3>Suggested Interview Questions</h3>
 
-  </div>
-   )}
+              <ul>
+                {questions.map((question, index) => (
+                  <li key={index}>{question}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
