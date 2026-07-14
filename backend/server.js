@@ -4,11 +4,19 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
+require("dotenv").config();
 
 
+
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({
+  model: "gemini-2.0-flash",
+});
 const app = express();
 let uploadedResumePath = "";
 app.use(cors());
+app.use(express.json());
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -110,10 +118,84 @@ app.get("/analyze", async (req, res) => {
 });
 
   } catch (error) {
-    console.log(error);
+    console.error("EVALUATE ERROR:");
+console.error(error);
 
     res.status(500).json({
       message: "Error analyzing resume",
+    });
+  }
+});
+
+app.post("/evaluate", async (req, res) => {
+  try {
+    const { question, answer } = req.body;
+
+    const prompt = `
+You are a technical interviewer.
+
+Question:
+${question}
+
+Candidate Answer:
+${answer}
+
+Evaluate the answer and provide:
+
+1. Score out of 10
+2. Strengths
+3. Areas for Improvement
+
+Keep the response concise.
+`;
+
+let feedback = "";
+
+if (answer.length > 150) {
+  feedback = `
+Score: 8/10
+
+Strengths:
+- Detailed explanation
+- Good technical understanding
+
+Areas for Improvement:
+- Add practical examples
+- Explain concepts more deeply
+`;
+} else if (answer.length > 50) {
+  feedback = `
+Score: 6/10
+
+Strengths:
+- Basic understanding shown
+
+Areas for Improvement:
+- Add more details
+- Include examples
+`;
+} else {
+  feedback = `
+Score: 4/10
+
+Strengths:
+- Attempted the answer
+
+Areas for Improvement:
+- Provide a complete explanation
+- Use technical terminology
+`;
+}
+
+res.json({
+  feedback,
+});
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      message: "Evaluation failed",
     });
   }
 });

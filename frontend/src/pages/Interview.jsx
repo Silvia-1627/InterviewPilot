@@ -16,6 +16,32 @@ function Interview() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answer, setAnswer] = useState("");
   const [allAnswers, setAllAnswers] = useState([]);
+  const [feedback, setFeedback] = useState("");
+
+  const evaluateAnswer = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:5000/evaluate",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: questions[currentQuestion],
+          answer: answer,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    setFeedback(data.feedback);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <div className="interview-container">
@@ -38,6 +64,19 @@ function Interview() {
 
       <p>Your Answer:</p>
       <p>{answer}</p>
+      <button
+  className="next-btn"
+  onClick={evaluateAnswer}
+>
+  Evaluate Answer
+</button> 
+
+{feedback && (
+  <div className="question-card">
+    <h3>Feedback</h3>
+    <pre>{feedback}</pre>
+  </div>
+)}
 
       <button
         className="next-btn"
@@ -49,6 +88,7 @@ function Interview() {
           if (currentQuestion < questions.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
             setAnswer("");
+            setFeedback("");
           } else {
             navigate("/result", {
               state: {
