@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ResumeUpload.css";
 
 function ResumeUpload() {
+  const navigate = useNavigate();
   const [resume, setResume] = useState(null);
   const [showAnalysis, setShowAnalysis] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
@@ -116,6 +118,19 @@ function ResumeUpload() {
                   <li key={index}>{question}</li>
                 ))}
               </ul>
+
+              <button
+  className="analyze-btn"
+  onClick={() =>
+    navigate("/interview", {
+      state: {
+        questions: questions,
+      },
+    })
+  }
+>
+  Start Interview
+</button>  
             </div>
           )}
         </div>

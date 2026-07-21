@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Interview.css";
 
 function Interview() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const questions = [
-    "Tell me about yourself.",
-    "What are your strengths?",
-    "Why should we hire you?",
-    "Tell me about one project you built.",
-    "Where do you see yourself in five years?"
+  const questions =
+  location.state?.questions || [
+    "Tell me about yourself."
   ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
