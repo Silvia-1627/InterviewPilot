@@ -79,6 +79,10 @@ function Interview() {
       <button
         className="next-btn"
         onClick={() => {
+          if (answer.trim() === "") {
+  alert("Please answer the question before continuing.");
+  return;
+}
           const updatedAnswers = [...allAnswers, answer];
 
           setAllAnswers(updatedAnswers);
@@ -89,10 +93,11 @@ function Interview() {
             setFeedback("");
           } else {
             navigate("/result", {
-              state: {
-                answers: updatedAnswers,
-              },
-            });
+  state: {
+    answers: updatedAnswers,
+    questions: questions,
+  },
+});
           }
         }}
       >
