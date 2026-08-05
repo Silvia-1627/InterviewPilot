@@ -53,3 +53,8 @@
 .analysis-box li {
   margin-bottom: 8px;
 }
+
+.upload-message {
+  margin-top: 15px;
+  font-weight: bold;
+}

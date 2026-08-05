@@ -1,5 +1,4 @@
-import axios from "axios";
- import { useState, useEffect } from "react";
+
  import { useLocation, useNavigate } from "react-router-dom";
 import "./Result.css";
 
@@ -11,24 +10,11 @@ function Result() {
 
   const answers = location.state?.answers || [];
 const questions = location.state?.questions || [];
-  const [resultData, setResultData] = useState({
-  score: 0,
-  communication: 0,
-  confidence: 0,
-  technical: 0,
-  feedback: "",
-});
+const score = location.state?.score || 0;
+const feedback = location.state?.feedback || "No feedback available.";
   
-useEffect(() => {
-  axios
-    .get("http://localhost:5000/feedback")
-  .then((response) => {
-  setResultData(response.data);
-})
-    .catch((error) => {
-      console.log(error);
-    });
-}, []);
+  
+
  return (
   <div className="result-container">
 
@@ -37,22 +23,18 @@ useEffect(() => {
     </h1>
     <div className="score-card">
 
-  <h2>Overall Score: {resultData.score}/100</h2>
+  <h2>Overall Score: {score}/10</h2>
   <div className="progress-bar">
   <div
     className="progress-fill"
-    style={{ width: `${resultData.score}%` }}
+    style={{ width: `${score * 10}%` }}
   ></div>
 </div>
 
-  <p>Communication: {resultData.communication}/10</p>
-
-  <p>Confidence: {resultData.confidence}/10</p>
-
-  <p>Technical Knowledge: {resultData.technical}/10</p>
+  
   <h3>Feedback</h3>
 
-<p>{resultData.feedback}</p>
+<pre>{feedback}</pre>
 
 </div>
     <p>Total Questions Answered: {answers.length}</p>
