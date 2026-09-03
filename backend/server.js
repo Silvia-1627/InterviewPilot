@@ -34,7 +34,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/feedback", (req, res) => {
-  res.send("Good communication skills. Improve technical depth.");
+  res.json({
+    score: 78,
+    communication: 8,
+    confidence: 7,
+    technical: 8,
+    feedback:
+      "Good confidence and communication skills. Try providing more real-world examples in your answers to make them stronger.",
+  });
 });
 
 app.post("/upload", upload.single("resume"), (req, res) => {
@@ -148,46 +155,109 @@ Evaluate the answer and provide:
 
 Keep the response concise.
 `;
+let score = 0;
 
-let feedback = "";
+let strengths = [];
 
-if (answer.length > 150) {
-  feedback = `
-Score: 8/10
+let improvements = [];
 
-Strengths:
-- Detailed explanation
-- Good technical understanding
-
-Areas for Improvement:
-- Add practical examples
-- Explain concepts more deeply
-`;
-} else if (answer.length > 50) {
-  feedback = `
-Score: 6/10
-
-Strengths:
-- Basic understanding shown
-
-Areas for Improvement:
-- Add more details
-- Include examples
-`;
+// Length Check
+if (answer.length >= 150) {
+  score += 2;
+  strengths.push("Detailed explanation");
+} else if (answer.length >= 70) {
+  score += 1;
+  improvements.push("Answer could be more detailed");
 } else {
-  feedback = `
-Score: 4/10
-
-Strengths:
-- Attempted the answer
-
-Areas for Improvement:
-- Provide a complete explanation
-- Use technical terminology
-`;
+  improvements.push("Answer is too short");
 }
 
+// Technical Keyword Check
+const keywords = [
+  "class",
+  "object",
+  "method",
+  "inheritance",
+  "polymorphism",
+  "abstraction",
+  "encapsulation",
+  "interface",
+  "java",
+  "algorithm",
+  "array",
+  "database",
+  "react",
+  "node",
+  "express",
+  "api",
+];
+
+let keywordCount = 0;
+
+keywords.forEach((keyword) => {
+  if (answer.toLowerCase().includes(keyword)) {
+    keywordCount++;
+  }
+});
+
+if (keywordCount >= 4) {
+  score += 4;
+  strengths.push("Used relevant technical keywords");
+} else if (keywordCount >= 2) {
+  score += 2;
+  strengths.push("Used some technical keywords");
+  improvements.push("Use more technical terminology");
+} else {
+  improvements.push("Answer lacks technical keywords");
+}
+// Example Detection
+const exampleWords = [
+  "example",
+  "for example",
+  "for instance",
+  "such as",
+];
+
+let hasExample = false;
+
+exampleWords.forEach((word) => {
+  if (answer.toLowerCase().includes(word)) {
+    hasExample = true;
+}
+});
+
+if (hasExample) {
+  score += 2;
+  strengths.push("Included a practical example");
+} else {
+  improvements.push("Include a practical example");
+}
+
+// Sentence Quality Check
+const words = answer.trim().split(/\s+/);
+
+if (words.length >= 20) {
+  score += 2;
+  strengths.push("Well-structured answer");
+} else if (words.length >= 10) {
+  score += 1;
+  improvements.push("Explain in more detail");
+} else {
+  improvements.push("Answer is too brief");
+}
+
+const feedback = `
+Score: ${score}/10
+
+Strengths:
+${strengths.length ? strengths.map(item => "- " + item).join("\n") : "- None"}
+
+Areas for Improvement:
+${improvements.length ? improvements.map(item => "- " + item).join("\n") : "- None"}
+`;
+
 res.json({
+  score,
   feedback,
 });
 
