@@ -1,31 +1,224 @@
+/* =========================
+   INTERVIEW CONTAINER
+========================= */
+
 .interview-container {
-    width: 800px;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 65px 30px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: #f3f1eb;
+}
+
+.interview-container::before {
+  content: "INTERVIEWPILOT  /  LIVE INTERVIEW";
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: #b5a35a;
+  margin-bottom: -8px;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.interview-container h1 {
+  margin: 0 0 20px;
+  text-align: center;
+  color: #f5f3ee;
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -1.5px;
+}
+
+
+/* =========================
+   QUESTION CARD
+========================= */
+
+.question-card {
+  background: #1b1c21;
+  padding: 38px 40px;
+  border-radius: 16px;
+  border: 1px solid #303139;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+}
+
+.question-card h2 {
+  margin: 0 0 22px;
+  color: #b5a35a;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.question-card p {
+  margin: 0;
+  color: #f1efe9;
+  font-size: 22px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+
+/* =========================
+   ANSWER SECTION
+========================= */
+
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answer-label {
+  color: #b5a35a;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+
+/* =========================
+   ANSWER BOX
+========================= */
+
+.answer-box {
+  width: 100%;
+  min-height: 190px;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px solid #36373e;
+  background: #15161a;
+  color: #e8e6df;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.7;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.answer-box::placeholder {
+  color: #777980;
+}
+
+.answer-box:focus {
+  border-color: #b5a35a;
+  box-shadow: 0 0 0 3px rgba(181, 163, 90, 0.08);
+}
+
+
+/* =========================
+   BUTTON GROUP
+========================= */
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.next-btn {
+  width: fit-content;
+  min-width: 200px;
+  box-sizing: border-box;
+  align-self: auto;
+  padding: 13px 24px;
+  border: 1px solid #b5a35a;
+  border-radius: 8px;
+  background: #b5a35a;
+  color: #17181c;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.next-btn:hover {
+  background: #c1af62;
+  transform: translateY(-1px);
+}
+
+.next-btn:active {
+  transform: translateY(0);
+}
+
+.next-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+  transform: none;
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback-card {
+  margin-top: 5px;
+}
+
+.interview-container pre {
+  margin: 0;
+  padding: 22px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #c4c5ca;
+  background: #15161a;
+  border: 1px solid #303139;
+  border-radius: 12px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .interview-container {
+    padding: 40px 18px 60px;
   }
-  
+
+  .interview-container h1 {
+    font-size: 36px;
+  }
+
   .question-card {
-    background-color: #1f2937;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 28px 22px;
   }
-  
+
+  .question-card p {
+    font-size: 19px;
+  }
+
   .answer-box {
+    min-height: 170px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .button-group .next-btn {
     width: 100%;
-    min-height: 150px;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 16px;
   }
-  
-  .next-btn {
-    width: 200px;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background-color: #4f46e5;
-    color: white;
-    cursor: pointer;
-  }
+}

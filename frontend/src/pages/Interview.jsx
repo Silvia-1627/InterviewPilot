@@ -6,105 +6,167 @@ function Interview() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const questions =
-  location.state?.questions || [
+  const questions = location.state?.questions || [
     "Tell me about yourself."
   ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answer, setAnswer] = useState("");
   const [allAnswers, setAllAnswers] = useState([]);
-  const [feedback, setFeedback] = useState("");
+  const [evaluations, setEvaluations] = useState([]);
+  const [currentEvaluation, setCurrentEvaluation] = useState(null);
 
   const evaluateAnswer = async () => {
-  try {
-    const response = await fetch(
-      "http://localhost:5000/evaluate",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    if (answer.trim() === "") {
+      alert("Please write an answer before evaluating.");
+      return;
+    }
+
+    if (currentEvaluation) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/evaluate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            question: questions[currentQuestion],
+            answer: answer,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      const evaluation = {
+        score: data.score,
+        feedback: data.feedback,
+      };
+
+      const updatedEvaluations = [
+        ...evaluations,
+        evaluation,
+      ];
+
+      setEvaluations(updatedEvaluations);
+      setCurrentEvaluation(evaluation);
+
+    } catch (error) {
+      console.log(error);
+      alert("Unable to evaluate the answer. Please try again.");
+    }
+  };
+
+  const handleNextQuestion = () => {
+    if (answer.trim() === "") {
+      alert("Please answer the question before continuing.");
+      return;
+    }
+
+    if (!currentEvaluation) {
+      alert("Please evaluate your answer before continuing.");
+      return;
+    }
+
+    const updatedAnswers = [
+      ...allAnswers,
+      answer,
+    ];
+
+    setAllAnswers(updatedAnswers);
+
+    if (currentQuestion < questions.length - 1) {
+
+      setCurrentQuestion(currentQuestion + 1);
+      setAnswer("");
+      setCurrentEvaluation(null);
+
+    } else {
+
+      navigate("/result", {
+        state: {
+          answers: updatedAnswers,
+          questions: questions,
+          evaluations: evaluations,
         },
-        body: JSON.stringify({
-          question: questions[currentQuestion],
-          answer: answer,
-        }),
-      }
-    );
-
-    const data = await response.json();
-
-    setFeedback(data.feedback);
-
-  } catch (error) {
-    console.log(error);
-  }
-};
+      });
+    }
+  };
 
   return (
     <div className="interview-container">
+
       <h1>AI Mock Interview</h1>
 
       <div className="question-card">
+
         <h2>
           Question {currentQuestion + 1}
         </h2>
 
-        <p>{questions[currentQuestion]}</p>
+        <p>
+          {questions[currentQuestion]}
+        </p>
+
       </div>
 
-      <textarea
-        className="answer-box"
-        placeholder="Write your answer here..."
-        value={answer}
-        onChange={(e) => setAnswer(e.target.value)}
-      ></textarea>
+      <div className="answer-section">
 
-      <p>Your Answer:</p>
-      <p>{answer}</p>
-      <button
-  className="next-btn"
-  onClick={evaluateAnswer}
->
-  Evaluate Answer
-</button> 
+        <label className="answer-label">
+          Your Answer
+        </label>
 
-{feedback && (
-  <div className="question-card">
-    <h3>Feedback</h3>
-    <pre>{feedback}</pre>
-  </div>
-)}
+        <textarea
+          className="answer-box"
+          placeholder="Write your answer here..."
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+        ></textarea>
 
-      <button
-        className="next-btn"
-        onClick={() => {
-          if (answer.trim() === "") {
-  alert("Please answer the question before continuing.");
-  return;
-}
-          const updatedAnswers = [...allAnswers, answer];
+      </div>
 
-          setAllAnswers(updatedAnswers);
+      <div className="button-group">
 
-          if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
-            setAnswer("");
-            setFeedback("");
-          } else {
-            navigate("/result", {
-  state: {
-    answers: updatedAnswers,
-    questions: questions,
-  },
-});
-          }
-        }}
-      >
-        {currentQuestion === questions.length - 1
-          ? "Finish Interview"
-          : "Next Question"}
-      </button>
+        <button
+          className="next-btn"
+          onClick={evaluateAnswer}
+          disabled={currentEvaluation !== null}
+        >
+          {currentEvaluation
+            ? "Answer Evaluated"
+            : "Evaluate Answer"}
+        </button>
+
+        <button
+          className="next-btn"
+          onClick={handleNextQuestion}
+        >
+          {currentQuestion === questions.length - 1
+            ? "Finish Interview"
+            : "Next Question"}
+        </button>
+
+      </div>
+
+      {currentEvaluation && (
+        <div className="question-card feedback-card">
+
+          <h3>
+            Feedback
+          </h3>
+
+          <pre>
+            {currentEvaluation.feedback}
+          </pre>
+
+        </div>
+      )}
+
     </div>
   );
 }

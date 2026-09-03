@@ -1,58 +1,275 @@
 .result-container {
-  width: 900px;
-  margin: 50px auto;
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 70px 30px 80px;
+  color: #f3f1eb;
 }
+
+/* =========================
+   PAGE HEADER
+========================= */
 
 .result-title {
-  text-align: center;
-  margin-bottom: 30px;
+  text-align: left;
+  margin: 0 0 8px;
+  font-size: 46px;
+  font-weight: 600;
+  letter-spacing: -1.5px;
+  color: #f5f3ee;
 }
 
-.answer-card {
-  background-color: #f4f4f4;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
+.result-container::before {
+  content: "INTERVIEWPILOT  /  PERFORMANCE";
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: #b5a35a;
+  margin-bottom: 14px;
 }
 
-.answer-card h3 {
-  margin-bottom: 10px;
-}
-
-.retake-btn {
-  padding: 12px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
+/* =========================
+   SCORE CARD
+========================= */
 
 .score-card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  text-align: center;
+  background: #f4f2ed;
+  color: #202126;
+  padding: 38px 42px;
+  border-radius: 18px;
+  margin: 35px 0 55px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
 }
+
+.score-card h2 {
+  margin: 0;
+  color: #202126 !important;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
 
 .progress-bar {
   width: 100%;
-  height: 20px;
-  background-color: #ddd;
-  border-radius: 10px;
+  height: 8px;
+  background: #d9d6cf;
+  border-radius: 20px;
   overflow: hidden;
-  margin: 15px 0;
+  margin: 25px 0 30px;
 }
 
 .progress-fill {
   height: 100%;
-  background-color: #af9e4c;
+  background: #b5a35a;
+  border-radius: 20px;
+  transition: width 0.6s ease;
 }
 
+/* =========================
+   SCORE FEEDBACK
+========================= */
+
 .score-card h3 {
-  margin-top: 20px;
+  margin: 0 0 8px;
+  color: #202126 !important;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .score-card p {
+  margin: 0;
+  color: #686970;
   line-height: 1.6;
+  font-size: 15px;
+}
+/* =========================
+   QUESTIONS COUNT
+========================= */
+
+.result-container > p {
+  margin: 0 0 20px;
+  color: #a9a9ad;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+/* =========================
+   QUESTION CARDS
+========================= */
+
+.answer-card {
+  background: #1b1c21;
+  padding: 34px 38px;
+  margin-bottom: 22px;
+  border-radius: 16px;
+  border: 1px solid #303139;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+
+/* Question number */
+
+.answer-card h3 {
+  margin: 0 0 28px;
+  color: #b5a35a;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+/* Labels */
+
+.answer-card p strong {
+  display: block;
+  margin-top: 22px;
+  margin-bottom: 9px;
+  color: #f0eee8;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+/* Question and answer text */
+
+.answer-card p {
+  margin: 0;
+  color: #b9bac0;
+  line-height: 1.75;
+  font-size: 16px;
+}
+
+/* Score */
+
+.answer-card h4 {
+  margin: 28px 0 10px;
+  color: #f2f0eb;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Feedback */
+
+.answer-card pre {
+  margin: 0;
+  padding: 20px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  line-height: 1.75;
+  font-size: 14px;
+  color: #bfc0c5;
+  background: #15161a;
+  border: 1px solid #2c2d33;
+  border-radius: 10px;
+}
+/* =========================
+   RETAKE BUTTON
+========================= */
+
+.retake-btn {
+  display: block;
+  margin: 40px auto 0;
+  padding: 13px 28px;
+  background: transparent;
+  color: #b5a35a;
+  border: 1px solid #b5a35a;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.retake-btn:hover {
+  background: #b5a35a;
+  color: #17181c;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+  .result-container {
+    padding: 45px 18px 60px;
+  }
+
+  .result-title {
+    font-size: 34px;
+  }
+
+  .score-card {
+    padding: 28px 24px;
+    margin-top: 28px;
+  }
+
+  .score-card h2 {
+    font-size: 24px;
+  }
+
+  .answer-card {
+    padding: 25px 22px;
+  }
+
+  .performance-summary {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .summary-item {
+    border-right: none;
+    border-bottom: 1px solid #dedbd4;
+    padding: 0 0 15px;
+  }
+
+  .summary-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+/* =========================
+   PERFORMANCE SUMMARY
+========================= */
+
+.performance-summary {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid #dedbd4;
+}
+
+.summary-item {
+  min-width: 150px;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #dedbd4;
+}
+
+.summary-item:last-child {
+  border-right: none;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #202126;
+}
+
+.summary-label {
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #777873;
 }

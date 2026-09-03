@@ -1,60 +1,386 @@
-.resume-container {
-    width: 500px;
-    margin: 100px auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .resume-container h1 {
-    text-align: center;
-  }
-  
-  .resume-container input {
-    padding: 10px;
-  }
+/* =========================
+   RESUME CONTAINER
+========================= */
 
-  .resume-info {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 10px;
+.resume-container {
+  width: 100%;
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 65px 30px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: #f3f1eb;
+}
+
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.resume-container::before {
+  content: "INTERVIEWPILOT  /  RESUME ANALYSIS";
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: #b5a35a;
+  margin-bottom: -8px;
+}
+
+.resume-container h1 {
+  margin: 0;
+  text-align: center;
+  color: #f5f3ee;
+  font-size: 46px;
+  font-weight: 600;
+  letter-spacing: -1.5px;
+}
+
+.resume-subtitle {
+  margin: -8px 0 15px;
+  text-align: center;
+  color: #92939a;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   UPLOAD SECTION
+========================= */
+
+.upload-section {
+  width: 100%;
+}
+
+.resume-container input[type="file"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 22px;
+  border: 1px dashed #4a4b52;
+  border-radius: 14px;
+  background: #1b1c21;
+  color: #bfc0c5;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.25s ease,
+              background 0.25s ease;
+}
+
+.resume-container input[type="file"]:hover {
+  border-color: #b5a35a;
+  background: #1e1f24;
+}
+
+.file-hint {
+  margin: 9px 0 0;
+  color: #777980;
+  font-size: 12px;
+}
+
+
+/* =========================
+   UPLOAD MESSAGE
+========================= */
+
+.upload-message {
+  margin: 0;
+  padding: 12px 16px;
+  color: #b5a35a;
+  background: rgba(181, 163, 90, 0.06);
+  border: 1px solid rgba(181, 163, 90, 0.18);
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+
+/* =========================
+   RESUME INFO
+========================= */
+
+.resume-info {
+  margin-top: 5px;
+  padding: 30px;
+  background: #1b1c21;
+  border: 1px solid #303139;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================
+   RESUME HEADER
+========================= */
+
+.resume-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #303139;
+}
+
+.section-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #b5a35a;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+}
+
+.resume-header h3 {
+  margin: 0;
+  color: #f1efe9;
+  font-size: 18px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.file-size {
+  color: #85868d;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+
+/* =========================
+   RESUME STATUS
+========================= */
+
+.resume-status {
+  padding: 20px 0 5px;
+}
+
+.resume-status p {
+  margin: 7px 0;
 }
 
 .success-text {
-  font-weight: bold;
-  margin-top: 10px;
+  color: #d5d1c5;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .analysis-ready {
-  margin-top: 10px;
-  font-weight: bold;
+  color: #b5a35a;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* =========================
+   UPLOAD ACTIONS
+========================= */
+
+.upload-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 15px;
 }
 
 .analyze-btn {
-  margin-top: 15px;
-  padding: 12px 20px;
-  border: none;
+  padding: 13px 24px;
+  border: 1px solid #b5a35a;
   border-radius: 8px;
+  background: #b5a35a;
+  color: #17181c;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
+.analyze-btn:hover {
+  background: #c1af62;
+  transform: translateY(-1px);
+}
+
+.secondary-btn {
+  background: transparent;
+  color: #b5a35a;
+}
+
+.secondary-btn:hover {
+  background: rgba(181, 163, 90, 0.08);
+  color: #c1af62;
+}
+
+
+/* =========================
+   ANALYSIS BOX
+========================= */
+
 .analysis-box {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #ffffff;
+  margin-top: 35px;
+  padding: 32px;
+  background: #f4f2ed;
+  color: #202126;
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+}
+
+.analysis-header {
+  padding-bottom: 25px;
+  border-bottom: 1px solid #dedbd4;
+}
+
+.analysis-header h2 {
+  margin: 0 0 8px;
+  color: #202126;
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.analysis-header p {
+  margin: 0;
+  color: #686970;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================
+   SKILLS
+========================= */
+
+.skills-section {
+  padding: 25px 0;
+  border-bottom: 1px solid #dedbd4;
+}
+
+.skills-section h3,
+.questions-section h3 {
+  margin: 0 0 16px;
+  color: #202126;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.skill-tag {
+  padding: 8px 13px;
+  background: #e8e5dd;
+  border: 1px solid #d5d1c7;
+  border-radius: 20px;
+  color: #3e4045;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* =========================
+   QUESTIONS
+========================= */
+
+.questions-section {
+  padding: 25px 0;
+}
+
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.question-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 16px;
+  background: #ebe9e3;
   border-radius: 10px;
 }
 
-.analysis-box ul {
-  padding-left: 20px;
+.question-number {
+  color: #b5a35a;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding-top: 2px;
 }
 
-.analysis-box li {
-  margin-bottom: 8px;
+.question-item p {
+  margin: 0;
+  color: #414249;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-.upload-message {
-  margin-top: 15px;
-  font-weight: bold;
+
+/* =========================
+   START INTERVIEW
+========================= */
+
+.start-interview-section {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.start-btn {
+  min-width: 180px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .resume-container {
+    padding: 45px 18px 60px;
+  }
+
+  .resume-container h1 {
+    font-size: 34px;
+  }
+
+  .resume-subtitle {
+    font-size: 14px;
+  }
+
+  .resume-container input[type="file"] {
+    padding: 16px;
+  }
+
+  .resume-info {
+    padding: 22px;
+  }
+
+  .resume-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .upload-actions {
+    flex-direction: column;
+  }
+
+  .upload-actions .analyze-btn {
+    width: 100%;
+  }
+
+  .analysis-box {
+    padding: 22px;
+  }
+
+  .start-interview-section {
+    justify-content: stretch;
+  }
+
+  .start-btn {
+    width: 100%;
+  }
+
 }

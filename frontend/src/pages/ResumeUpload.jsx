@@ -5,6 +5,7 @@ import "./ResumeUpload.css";
 
 function ResumeUpload() {
   const navigate = useNavigate();
+
   const [resume, setResume] = useState(null);
   const [showAnalysis, setShowAnalysis] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
@@ -57,7 +58,26 @@ function ResumeUpload() {
 
   return (
     <div className="resume-container">
+
       <h1>Upload Resume</h1>
+
+      <p className="resume-subtitle">
+        Upload your resume to generate a personalized mock interview.
+      </p>
+
+      <div className="upload-section">
+
+        <input
+          type="file"
+          accept=".pdf"
+          onChange={handleFileChange}
+        />
+
+        <p className="file-hint">
+          PDF files only
+        </p>
+
+      </div>
 
       {uploadMessage && (
         <p className="upload-message">
@@ -65,76 +85,142 @@ function ResumeUpload() {
         </p>
       )}
 
-      <input
-        type="file"
-        accept=".pdf"
-        onChange={handleFileChange}
-      />
-
       {resume && (
         <div className="resume-info">
-          <h3>Selected Resume</h3>
 
-          <p>{resume.name}</p>
+          <div className="resume-header">
+            <div>
+              <span className="section-label">
+                SELECTED RESUME
+              </span>
 
-          <p>Size: {fileSize} KB</p>
+              <h3>
+                {resume.name}
+              </h3>
+            </div>
 
-          <p className="success-text">
-            Resume Uploaded Successfully
-          </p>
+            <span className="file-size">
+              {fileSize} KB
+            </span>
+          </div>
 
-          <p className="analysis-ready">
-            Ready For AI Analysis
-          </p>
+          <div className="resume-status">
 
-          <button
-            className="analyze-btn"
-            onClick={handleUpload}
-          >
-            Upload Resume
-          </button>
+            <p className="success-text">
+              Resume Uploaded Successfully
+            </p>
 
-          <button
-            className="analyze-btn"
-            onClick={handleAnalyze}
-          >
-            Analyze Resume
-          </button>
+            <p className="analysis-ready">
+              Ready For AI Analysis
+            </p>
+
+          </div>
+
+          <div className="upload-actions">
+
+            <button
+              className="analyze-btn secondary-btn"
+              onClick={handleUpload}
+            >
+              Upload Resume
+            </button>
+
+            <button
+              className="analyze-btn"
+              onClick={handleAnalyze}
+            >
+              Analyze Resume
+            </button>
+
+          </div>
 
           {showAnalysis && (
             <div className="analysis-box">
-              <h3>Skills Detected</h3>
 
-              <ul>
-                {skills.map((skill, index) => (
-                  <li key={index}>{skill}</li>
-                ))}
-              </ul>
+              <div className="analysis-header">
+                <span className="section-label">
+                  ANALYSIS COMPLETE
+                </span>
 
-              <h3>Suggested Interview Questions</h3>
+                <h2>
+                  Resume Insights
+                </h2>
 
-              <ul>
-                {questions.map((question, index) => (
-                  <li key={index}>{question}</li>
-                ))}
-              </ul>
+                <p>
+                  Your resume has been analyzed and personalized
+                  interview questions have been generated.
+                </p>
+              </div>
 
-              <button
-  className="analyze-btn"
-  onClick={() =>
-    navigate("/interview", {
-      state: {
-        questions: questions,
-      },
-    })
-  }
->
-  Start Interview
-</button>  
+              <div className="skills-section">
+
+                <h3>
+                  Skills Detected
+                </h3>
+
+                <div className="skills-list">
+                  {skills.map((skill, index) => (
+                    <span
+                      className="skill-tag"
+                      key={index}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+
+              </div>
+
+              <div className="questions-section">
+
+                <h3>
+                  Suggested Interview Questions
+                </h3>
+
+                <div className="questions-list">
+
+                  {questions.map((question, index) => (
+                    <div
+                      className="question-item"
+                      key={index}
+                    >
+                      <span className="question-number">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      <p>
+                        {question}
+                      </p>
+                    </div>
+                  ))}
+
+                </div>
+
+              </div>
+
+              <div className="start-interview-section">
+
+                <button
+                  className="analyze-btn start-btn"
+                  onClick={() =>
+                    navigate("/interview", {
+                      state: {
+                        questions: questions,
+                      },
+                    })
+                  }
+                >
+                  Start Interview
+                </button>
+
+              </div>
+
             </div>
           )}
+
         </div>
       )}
+
     </div>
   );
 }
